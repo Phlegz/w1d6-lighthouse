@@ -1,3 +1,15 @@
 var https = require('https')
 
-console.log('i did it');
+var options = {
+  host: 'stream-large-file.herokuapp.com',
+  path: '/give-me-stuff-now'
+}
+
+var callback = (response) => {
+  response.on('data', (chunk) => {
+  console.log('[-- CHUNK OF LENGTH ' + chunk.length + ' --]');
+  console.log(chunk.toString());
+});
+}
+
+https.request(options,callback).end()
